@@ -17,10 +17,12 @@ composer run prepare-for-pantheon
 if [[ $CI_BRANCH != $DEFAULT_BRANCH ]]
 then
     # Create a new multidev environment (or push to an existing one)
-    terminus -n build:env:create "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --yes
+    echo "Running build:env:create with no-git-force"
+    terminus -n build:env:create "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --no-git-force --yes
 else
     # Push to the dev environment
-    terminus -n build:env:push "$TERMINUS_SITE.dev" --yes
+    echo "Running build:env:push with no-git-force"
+    terminus -n build:env:push "$TERMINUS_SITE.dev" --no-git-force --yes
 fi
 
 # Run update-db to ensure that the cloned database is updated for the new code.
